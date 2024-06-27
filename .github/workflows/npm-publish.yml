@@ -1,0 +1,37 @@
+name: tokenizer Web App
+
+on:
+  push:
+    branches:
+      - main  # Set the branch you want to trigger the workflow on
+
+
+jobs:
+  build_and_deploy_job:
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.x'  # Specify the node version if needed
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the app
+        run: npm run build
+
+      - name: Deploy to Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.MYGITHUB_TOKEN }}
+          action: 'upload'
+          app_location: '/'  # Location of your application code
+          api_location: 'api'  # Location of your API code, if any
+          output_location: 'build'  # Location of the build output directory
+ 
