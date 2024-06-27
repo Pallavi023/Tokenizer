@@ -9,10 +9,7 @@ function App() {
     return input.split(/\s+/).filter(Boolean).length;
   };
 
-  const tokenizeText = (text) => {
-    return text.split(" "); // Split text by spaces
-  };
-
+ 
   const countCharacters = (input) => {
     return input.length;
   };
