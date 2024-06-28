@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Switch from '@mui/material/Switch';
 import { useAuth0 } from '@auth0/auth0-react';
 const UserDetail = () =>{
-  const { isAuthenticated, isLoading, logout } = useAuth0();
+  const { isAuthenticated, isLoading } = useAuth0();
   const topRef = useRef(null); // Reference for scrolling to top
 
   const [text, setText] = useState('');
