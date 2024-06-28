@@ -7,7 +7,6 @@ const UserDetail = () =>{
 
   const [text, setText] = useState('');
   const [showText, setShowText] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
   const [history, setHistory] = useState([]);
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
 
