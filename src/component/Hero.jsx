@@ -2,7 +2,7 @@ import React from "react";
 import LoginButton from "./LoginButton";  // Ensure the correct casing
 import SignupButton from "./SignupButton";  // Ensure the correct casing
 
-function Hero() {
+const Hero = () =>{
   return (
     <div
       className="flex justify-center items-center h-screen"
