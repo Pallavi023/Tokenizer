@@ -33,35 +33,35 @@ function UserProfile() {
 
   return (
     isAuthenticated && (
-      <>
-        <div className="flex flex-col items-end p-2">
-          <button onClick={toggleDetails} className="flex items-center mt-4">
-          <AccountCircleIcon style={{ fontSize: 30 }} />
-          
-        </button>
-        {showDetails && (
-          <div className="mt-4 p-4 border rounded bg-gray-100">
-            <img src={user.picture} alt="User Avatar" className="rounded-full h-24 w-24 mx-auto mb-2" />
-            <h2 className="text-xl font-bold text-gray-800">{user.name}</h2>
-            <p className="text-gray-600">{user.email}</p>
-          </div>
-        )}
-        <button onClick={handleLogout} className="mt-2 px-1 py-1 bg-gray-300 rounded-md text-gray-700">
-          Logout
-        </button>
-        </div>
+      <div className="bg-gradient-to-r from-purple-200 via-pink-100 to-red-200 min-h-screen p-4">
+       <div className="flex flex-row absolute top-0 right-0 m-4">
+  <button onClick={toggleDetails} className="flex items-center">
+    <AccountCircleIcon style={{ fontSize: 30 }} />
+  </button>
+  {showDetails && (
+    <div className="mt-4 p-4 border rounded bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 text-white">
+      <img src={user.picture} alt="User Avatar" className="rounded-full h-24 w-24 mx-auto mb-2" />
+      <h2 className="text-xl font-bold">{user.name}</h2>
+      <p>{user.email}</p>
+    </div>
+  )}
+  <button onClick={handleLogout} className="mt-1 px-4 py-2 rounded-md text-white bg-black-500 hover:bg-white-600">
+    Logout
+  </button>
+</div>
+
         <div className="App flex justify-center items-center">
           <div className="container max-w-2xl mx-auto p-4">
             <h1 className="text-3xl font-bold text-gray-800 mb-4">Mistral Tokenizer</h1>
-            <p className="text-gray-600 mb-6 text-">
+            <p className="text-gray-600 mb-6">
               Large language models such as Mistral decode text through tokens — frequent
               character sequences within a text corpus.
             </p>
-            <p className="text-gray-600 mb-6 ">
+            <p className="text-gray-600 mb-6">
               These models master the art of recognizing patterns among tokens, adeptly
               predicting the subsequent token in a series.
             </p>
-            <p className="text-gray-600 mb-6 ">
+            <p className="text-gray-600 mb-6">
               Below, you'll find a tool designed to show how Mistral models break down a text into tokens,
               alongside a tally of the total tokens present in the text.
             </p>
@@ -96,21 +96,20 @@ function UserProfile() {
 
             {showText && (
               <div className="p-4 border rounded bg-red-100 flex justify-center mt-4 border-white">
-                {/* Displaying the input text in the show text section */}
                 {text.split(/\s+/).map((token, index) => (
                   <span key={index} className="inline-block m-1 border border-white">
                     <span
                       style={{
                         backgroundColor:
                           index % 5 === 0
-                            ? '#F7DC6F' // light yellow
+                            ? '#ff6f61' // vibrant red
                             : index % 5 === 1
-                            ? '#ADD8E6' // light blue
+                            ? '#6b5b95' // vibrant purple
                             : index % 5 === 2
-                            ? '#C6E2B5' // light green
+                            ? '#88b04b' // vibrant green
                             : index % 5 === 3
-                            ? '#F0F0F0' // light gray
-                            : '#FFD7BE', // light orange
+                            ? '#f7cac9' // vibrant pink
+                            : '#92a8d1', // vibrant blue
                         color: 'black',
                         borderRadius: '5px',
                         padding: '2px 5px',
@@ -118,16 +117,14 @@ function UserProfile() {
                     >
                       {token}
                     </span>
-                    {/* Adding a space after each token for readability */}
                     {' '}
                   </span>
                 ))}
               </div>
             )}
-
           </div>
         </div>
-      </>
+      </div>
     )
   );
 }
