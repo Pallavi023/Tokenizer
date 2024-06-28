@@ -3,7 +3,7 @@ import Switch from '@mui/material/Switch';
 import { useAuth0 } from '@auth0/auth0-react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-const UserProfile = () =>{
+const UserDetail = () =>{
   const { user, isAuthenticated, isLoading, logout } = useAuth0();
   const topRef = useRef(null); // Reference for scrolling to top
 
@@ -154,4 +154,4 @@ const UserProfile = () =>{
   );
 }
 
-export default UserProfile;
+export default UserDetail;
