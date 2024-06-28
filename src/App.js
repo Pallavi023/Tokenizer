@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import Navbar from './component/Navbar';
-import UserProfile from './component/UserProfile'; // Ensure file name casing matches
+import UserDetail from './component/UserDetail'; // Ensure file name casing matches
 import DataPage from './component/DataPage';
 import Hero from './component/Hero';
 import LoginButton from './component/LoginButton';
@@ -44,7 +44,7 @@ function App() {
             <>
               <Navbar />
               <div className="flex flex-col md:flex-row min-h-screen">
-                <UserProfile />
+                <UserDetail />
                 <DataPage />
               </div>
             </>
