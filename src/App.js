@@ -5,7 +5,7 @@ import Navbar from './component/Navbar';
 import UserProfile from './component/userProfile'; // Ensure file name casing matches
 import DataPage from './component/DataPage';
 import Hero from './component/Hero';
-import LoginButton from './component/LoginButton';
+import LoginButton from './component/loginButton';
 import SignupButton from './component/SignupButton';
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
