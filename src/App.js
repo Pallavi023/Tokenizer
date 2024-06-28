@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LoginButton from "./component/loginButton";
-import LogoutButton from "./component/logoutButton";
 import UserProfile from "./component/userProfile";
 import { useAuth0 } from "@auth0/auth0-react";
 
