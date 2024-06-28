@@ -4,7 +4,6 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Navbar from './component/Navbar';
 import UserDetail from './component/UserDetail'; // Ensure file name casing matches
 import DataPage from './component/DataPage';
-import Hero from './component/Hero';
 import LoginButton from './component/LoginButton';
 import SignupButton from './component/SignupButton';
 function App() {
