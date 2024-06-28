@@ -3,7 +3,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField } from '@mui/material';
 
-const DataPage = () =>{
+const DataPage = () => {
   const [history, setHistory] = useState([]);
   const [deleteIndex, setDeleteIndex] = useState(null);
   const [editIndex, setEditIndex] = useState(null);
@@ -21,6 +21,17 @@ const DataPage = () =>{
   useEffect(() => {
     const savedHistory = JSON.parse(localStorage.getItem('tokenizerHistory')) || [];
     setHistory(savedHistory);
+
+    const handleStorageChange = () => {
+      const updatedHistory = JSON.parse(localStorage.getItem('tokenizerHistory')) || [];
+      setHistory(updatedHistory);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   const deleteEntry = (index) => {
@@ -68,7 +79,7 @@ const DataPage = () =>{
   };
 
   return (
-    <div className="container mx-auto p-4 flex-1">
+    <div className="container mx-auto p-4 flex-1 overflow-y-auto">
       <h2 className="text-2xl font-bold mb-4 mt-4">Tokenizer History</h2>
       {history.length === 0 ? (
         <p className="text-gray-600">No history available.</p>
