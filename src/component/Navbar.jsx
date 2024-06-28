@@ -12,11 +12,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom'; // Import Link for navigation
-import DataPage from './DataPage'; // Import DataPage component
-
 function Navbar() {
   const { user, isAuthenticated, isLoading, logout, loginWithRedirect } = useAuth0();
   const [anchorElNav, setAnchorElNav] = React.useState(null);

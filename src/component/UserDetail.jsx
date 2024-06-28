@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Switch from '@mui/material/Switch';
 import { useAuth0 } from '@auth0/auth0-react';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
 const UserDetail = () =>{
-  const { user, isAuthenticated, isLoading, logout } = useAuth0();
+  const { isAuthenticated, isLoading, logout } = useAuth0();
   const topRef = useRef(null); // Reference for scrolling to top
 
   const [text, setText] = useState('');
@@ -30,13 +28,6 @@ const UserDetail = () =>{
     return input.length;
   };
 
-  const toggleDetails = () => {
-    setShowDetails(!showDetails);
-  };
-
-  const handleLogout = () => {
-    logout({ returnTo: window.location.origin });
-  };
 
   const saveResults = () => {
     const newEntry = {
