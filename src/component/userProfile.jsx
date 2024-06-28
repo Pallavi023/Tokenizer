@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Switch from '@mui/material/Switch';
 import { useAuth0 } from '@auth0/auth0-react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 function UserProfile() {
   const { user, isAuthenticated, isLoading, logout } = useAuth0();
+  const topRef = useRef(null); // Reference for scrolling to top
 
-  // Ensure these hooks are always called, not conditionally
   const [text, setText] = useState('');
   const [showText, setShowText] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const [history, setHistory] = useState([]);
+  const [showSuccessNotification, setShowSuccessNotification] = useState(false);
+
+  useEffect(() => {
+    const savedHistory = JSON.parse(localStorage.getItem('tokenizerHistory')) || [];
+    setHistory(savedHistory);
+  }, []);
 
   if (isLoading) {
     return <div>Loading!</div>;
@@ -31,28 +38,41 @@ function UserProfile() {
     logout({ returnTo: window.location.origin });
   };
 
+  const saveResults = () => {
+    const newEntry = {
+      text,
+      tokens: countTokens(text),
+      characters: countCharacters(text),
+      timestamp: new Date().toLocaleString(),
+    };
+    const updatedHistory = [newEntry, ...history];
+    setHistory(updatedHistory);
+    localStorage.setItem('tokenizerHistory', JSON.stringify(updatedHistory));
+    setShowSuccessNotification(true); // Show success notification
+    scrollToTop(); // Scroll to top of the page
+    setTimeout(() => {
+      setShowSuccessNotification(false); // Hide notification after 3 seconds
+    }, 3000); // Adjust duration as needed
+  };
+
+  const scrollToTop = () => {
+    if (topRef.current) {
+      topRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     isAuthenticated && (
-      <div className="bg-gradient-to-r from-purple-200 via-pink-100 to-red-200 min-h-screen p-4">
-       <div className="flex flex-row absolute top-0 right-0 m-4">
-  <button onClick={toggleDetails} className="flex items-center">
-    <AccountCircleIcon style={{ fontSize: 30 }} />
-  </button>
-  {showDetails && (
-    <div className="mt-4 p-4 border rounded bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 text-white">
-      <img src={user.picture} alt="User Avatar" className="rounded-full h-24 w-24 mx-auto mb-2" />
-      <h2 className="text-xl font-bold">{user.name}</h2>
-      <p>{user.email}</p>
-    </div>
-  )}
-  <button onClick={handleLogout} className="mt-1 px-4 py-2 rounded-md text-white bg-black-500 hover:bg-white-600">
-    Logout
-  </button>
-</div>
+      <div className="flex-1 p-4">
+        {showSuccessNotification && (
+          <div className="text-green-600 text-center py-2">
+            Results saved successfully!
+          </div>
+        )}
 
-        <div className="App flex justify-center items-center">
-          <div className="container max-w-2xl mx-auto p-4">
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">Mistral Tokenizer</h1>
+        <div ref={topRef} className="App flex justify-center items-center">
+          <div className="container mx-auto p-4">
+            <h1 className="text-2xl font-bold text-gray-800 mb-4">Mistral Tokenizer</h1>
             <p className="text-gray-600 mb-6">
               Large language models such as Mistral decode text through tokens — frequent
               character sequences within a text corpus.
@@ -69,17 +89,17 @@ function UserProfile() {
             <textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
-              className="h-[250px] w-[600px] p-4 border-black border-2"
+              className="w-full h-48 p-4 border-black border-2"
               placeholder="Type here..."
             />
 
             <div className="flex flex-col">
-              <div className="flex gap-10 w-10">
-                <p className="w-10">Token:</p>
+              <div className="flex gap-10">
+                <p className="w-20">Token:</p>
                 <p>Characters:</p>
               </div>
               <div className="flex gap-10 text-blue-500 font-bold text-2xl">
-                <p className="w-10">{countTokens(text)}</p>
+                <p className="w-20">{countTokens(text)}</p>
                 <p>{countCharacters(text)}</p>
               </div>
             </div>
@@ -122,6 +142,11 @@ function UserProfile() {
                 ))}
               </div>
             )}
+
+            <button onClick={saveResults} className="mt-4 px-4 py-2 rounded-md bg-green-500 text-white">
+              Save Results
+            </button>
+
           </div>
         </div>
       </div>

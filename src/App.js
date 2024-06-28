@@ -1,9 +1,12 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import LoginButton from "./component/loginButton";
-import UserProfile from "./component/userProfile";
-import { useAuth0 } from "@auth0/auth0-react";
-
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
+import Navbar from './component/Navbar';
+import UserProfile from './component/userProfile'; // Ensure file name casing matches
+import DataPage from './component/DataPage';
+import Hero from './component/Hero';
+import LoginButton from './component/LoginButton';
+import SignupButton from './component/SignupButton';
 function App() {
   const { isAuthenticated, isLoading } = useAuth0();
 
@@ -14,28 +17,41 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {!isAuthenticated ? (
-          <div
-            className="flex justify-center items-center h-screen"
-            style={{
-              backgroundImage: `url("/img/bg.jpg")`, // Adjust the path as per your project structure
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="text-center space-y-4 p-4 rounded-lg">
-              <div className="border border-gray-300 rounded-lg px-4 py-2">
-                <LoginButton />
+        <Routes>
+          {/* Route for the Hero component, only accessible when not authenticated */}
+          <Route path="/" element={!isAuthenticated ? <>
+            <div
+      className="flex justify-center items-center h-screen"
+      style={{
+        backgroundImage: `url("/img/bg.jpg")`, // Adjust the path as per your project structure
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="text-center space-y-4 p-4 rounded-lg">
+        <div className="border border-gray-300 rounded-lg px-4 py-2">
+          <LoginButton />
+        </div>
+        <div className="border border-gray-300 rounded-lg px-4 py-2">
+          <SignupButton />
+        </div>
+      </div>
+    </div>
+          </> : <Navigate to="/dashboard" />} />
+
+          {/* Private route for the dashboard, accessible only when authenticated */}
+          <Route path="/dashboard/*" element={isAuthenticated ? (
+            <>
+              <Navbar />
+              <div className="flex flex-col md:flex-row min-h-screen">
+                <UserProfile />
+                <DataPage />
               </div>
-            </div>
-          </div>
-        ) : (
-          <Routes>
-            <Route path="/profile" element={<UserProfile />} />
-            <Route path="/*" element={<Navigate to="/profile" />} />
-          </Routes>
-        )}
-       
+            </>
+          ) : (
+            <Navigate to="/" />
+          )} />
+        </Routes>
       </div>
     </Router>
   );
