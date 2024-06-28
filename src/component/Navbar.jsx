@@ -13,7 +13,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom'; // Import Link for navigation
 import DataPage from './DataPage'; // Import DataPage component
