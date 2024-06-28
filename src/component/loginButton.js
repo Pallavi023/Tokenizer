@@ -5,7 +5,7 @@ const LoginButton = () => {
   const { loginWithRedirect } = useAuth0();
 
   const handleLogin = () => {
-    loginWithRedirect(); // This should trigger the Auth0 login flow
+    loginWithRedirect();
   };
 
   return (
