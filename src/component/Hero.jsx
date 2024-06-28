@@ -1,5 +1,5 @@
 import React from "react";
-import LoginButton from "./loginButton";  // Ensure the correct casing
+import LoginButton from "./LoginButton";  // Ensure the correct casing
 import SignupButton from "./SignupButton";  // Ensure the correct casing
 
 function Hero() {
