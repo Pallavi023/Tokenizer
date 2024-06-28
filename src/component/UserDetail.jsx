@@ -105,33 +105,35 @@ const UserDetail = () =>{
             </div>
 
             {showText && (
-              <div className="p-4 border rounded bg-red-100 flex justify-center mt-4 border-white">
-                {text.split(/\s+/).map((token, index) => (
-                  <span key={index} className="inline-block m-1 border border-white">
-                    <span
-                      style={{
-                        backgroundColor:
-                          index % 5 === 0
-                            ? '#ff6f61' // vibrant red
-                            : index % 5 === 1
-                            ? '#6b5b95' // vibrant purple
-                            : index % 5 === 2
-                            ? '#88b04b' // vibrant green
-                            : index % 5 === 3
-                            ? '#f7cac9' // vibrant pink
-                            : '#92a8d1', // vibrant blue
-                        color: 'black',
-                        borderRadius: '5px',
-                        padding: '2px 5px',
-                      }}
-                    >
-                      {token}
-                    </span>
-                    {' '}
-                  </span>
-                ))}
-              </div>
-            )}
+  <div className="p-4 border rounded bg-red-100 flex flex-wrap justify-center mt-4 border-white">
+    {text.split(/\s+/).map((token, index) => (
+      <span key={index} className="inline-block m-1 border border-white">
+        <span
+          style={{
+            backgroundColor:
+              index % 5 === 0
+                ? '#ff6f61' // vibrant red
+                : index % 5 === 1
+                ? '#6b5b95' // vibrant purple
+                : index % 5 === 2
+                ? '#88b04b' // vibrant green
+                : index % 5 === 3
+                ? '#f7cac9' // vibrant pink
+                : '#92a8d1', // vibrant blue
+            color: 'black',
+            borderRadius: '5px',
+            padding: '2px 5px',
+            wordBreak: 'break-word', // Ensure long words break properly
+          }}
+        >
+          {token}
+        </span>
+        {' '}
+      </span>
+    ))}
+  </div>
+)}
+
 
             <button onClick={saveResults} className="mt-4 px-4 py-2 rounded-md bg-green-500 text-white">
               Save Results
