@@ -10,7 +10,7 @@ const DataPage = () => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [showDeleteNotification, setShowDeleteNotification] = useState(false);
-  const [showEditNotification, setShowEditNotification] = useState(false); // State for edit success notification
+  const [showEditNotification, setShowEditNotification] = useState(false);
   const [editFormData, setEditFormData] = useState({
     text: '',
     tokens: '',
@@ -36,29 +36,29 @@ const DataPage = () => {
 
   const deleteEntry = (index) => {
     const updatedHistory = [...history];
-    updatedHistory.splice(index, 1); // Remove the entry at the specified index
+    updatedHistory.splice(index, 1);
     setHistory(updatedHistory);
     localStorage.setItem('tokenizerHistory', JSON.stringify(updatedHistory));
-    setIsDeleteOpen(false); // Close delete confirmation dialog
-    setShowDeleteNotification(true); // Show delete notification
+    setIsDeleteOpen(false);
+    setShowDeleteNotification(true);
     setTimeout(() => {
-      setShowDeleteNotification(false); // Hide notification after 3 seconds
+      setShowDeleteNotification(false);
     }, 3000);
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top after deletion
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const editEntry = (index) => {
-    setEditIndex(index); // Set the index of the entry to edit
+    setEditIndex(index);
     const { text, tokens, characters, timestamp } = history[index];
     setEditFormData({ text, tokens, characters, timestamp });
-    setIsEditOpen(true); // Open edit confirmation dialog or directly edit
+    setIsEditOpen(true);
   };
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;
     let updatedTokens = value.split(' ').filter(Boolean).length.toString();
     let updatedCharacters = value.length.toString();
-    setEditFormData(prevState => ({
+    setEditFormData((prevState) => ({
       ...prevState,
       [name]: value,
       tokens: updatedTokens,
@@ -71,10 +71,10 @@ const DataPage = () => {
     updatedHistory[editIndex] = { ...editFormData, timestamp: new Date().toLocaleString() };
     setHistory(updatedHistory);
     localStorage.setItem('tokenizerHistory', JSON.stringify(updatedHistory));
-    setIsEditOpen(false); // Close edit confirmation dialog
-    setShowEditNotification(true); // Show edit success notification
+    setIsEditOpen(false);
+    setShowEditNotification(true);
     setTimeout(() => {
-      setShowEditNotification(false); // Hide notification after 3 seconds
+      setShowEditNotification(false);
     }, 3000);
   };
 
@@ -109,7 +109,6 @@ const DataPage = () => {
         </ul>
       )}
 
-      {/* Delete Confirmation Dialog */}
       <Dialog open={isDeleteOpen} onClose={() => setIsDeleteOpen(false)}>
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
@@ -121,7 +120,6 @@ const DataPage = () => {
         </DialogActions>
       </Dialog>
 
-      {/* Edit Confirmation Dialog */}
       <Dialog open={isEditOpen} onClose={() => setIsEditOpen(false)}>
         <DialogTitle>Edit Entry</DialogTitle>
         <DialogContent>
@@ -175,17 +173,31 @@ const DataPage = () => {
         </DialogActions>
       </Dialog>
 
-      {/* Delete Notification */}
       {showDeleteNotification && (
-        <div className="fixed top-0 left-0 w-full text-red-500 py-2 px-4 text-center">
+        <div className="fixed top-4 right-4 bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded shadow-md flex items-center">
+          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+          </svg>
           Data deleted successfully!
+          <button onClick={() => setShowDeleteNotification(false)} className="ml-auto">
+            <svg className="w-4 h-4 text-gray-600 hover:text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
       )}
 
-      {/* Edit Notification */}
       {showEditNotification && (
-        <div className="fixed top-0 left-0 w-full text-blue-500 py-2 px-4 text-center">
+        <div className="fixed top-4 right-4 bg-blue-100 border border-blue-400 text-blue-700 px-4 py-2 rounded shadow-md flex items-center">
+          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+          </svg>
           Data edited successfully!
+          <button onClick={() => setShowEditNotification(false)} className="ml-auto">
+            <svg className="w-4 h-4 text-gray-600 hover:text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
       )}
     </div>
