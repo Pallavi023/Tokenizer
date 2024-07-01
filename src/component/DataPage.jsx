@@ -79,32 +79,33 @@ const DataPage = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 flex-1 overflow-y-auto">
-      <h2 className="text-2xl font-bold mb-4 mt-4">Tokenizer History</h2>
+    <div className="container mx-auto p-4 flex-1 overflow-y-auto" style={{ backgroundImage: `url('path_to_your_background_image')`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <h2 className="text-2xl text-white font-bold mb-4 mt-4">Tokenizer History</h2>
       {history.length === 0 ? (
         <p className="text-gray-600">No history available.</p>
       ) : (
         <ul>
           {history.map((entry, index) => (
-            <li key={index} className="mb-4 p-4 border rounded bg-gray-100 flex justify-between items-center">
-              <div>
-                <p><strong>Text:</strong> {entry.text}</p>
-                <p><strong>Tokens:</strong> {entry.tokens}</p>
-                <p><strong>Characters:</strong> {entry.characters}</p>
-                <p><strong>Timestamp:</strong> {entry.timestamp}</p>
-              </div>
-              <div className="flex gap-2">
-                <button onClick={() => {
-                  setDeleteIndex(index);
-                  setIsDeleteOpen(true);
-                }} className="text-red-500">
-                  <DeleteOutlineIcon />
-                </button>
-                <button onClick={() => editEntry(index)} className="text-blue-500">
-                  <EditIcon />
-                </button>
-              </div>
-            </li>
+            <li key={index} className="mb-4 px-4 bg-white text-white bg-opacity-0 backdrop-filter backdrop-blur-lg border rounded shadow hover:bg-opacity-10 hover:shadow-lg flex justify-between items-center">
+            <div>
+              <p><strong>Text:</strong> {entry.text}</p>
+              <p><strong>Tokens:</strong> {entry.tokens}</p>
+              <p><strong>Characters:</strong> {entry.characters}</p>
+              <p><strong>Timestamp:</strong> {entry.timestamp}</p>
+            </div>
+            <div className="flex gap-2">
+              <button onClick={() => {
+                setDeleteIndex(index);
+                setIsDeleteOpen(true);
+              }} className="text-red-500">
+                <DeleteOutlineIcon />
+              </button>
+              <button onClick={() => editEntry(index)} className="text-blue-500">
+                <EditIcon />
+              </button>
+            </div>
+          </li>
+          
           ))}
         </ul>
       )}

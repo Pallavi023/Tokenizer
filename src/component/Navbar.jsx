@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Link } from 'react-router-dom'; // Import Link for navigation
+
 function Navbar() {
   const { user, isAuthenticated, isLoading, logout, loginWithRedirect } = useAuth0();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -44,8 +45,15 @@ function Navbar() {
     return <div>Loading...</div>;
   }
 
+  const colors = ['#fb4784', '#fb4784', '#fb4784', '#fb4784', '#fb4784', '#fb4784', '#fb4784', '#fb4784'];
+  const tokenizerText = 'Tokenizer'.split('').map((letter, index) => (
+    <span key={index} style={{ color: colors[index % colors.length] }}>
+      {letter}
+    </span>
+  ));
+
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'white' }}>
+    <AppBar position="static" sx={{ backgroundColor: '#321e55' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -60,11 +68,11 @@ function Navbar() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
-              color: 'black',
+              color: '#fb4784', // Text color set to #fb4784
               textDecoration: 'none',
             }}
           >
-            Tokenizer
+            {tokenizerText}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -74,7 +82,7 @@ function Navbar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="black"
+              color="inherit"
             >
               <MenuIcon />
             </IconButton>
